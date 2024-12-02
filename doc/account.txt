@@ -1,0 +1,38 @@
+api:
+https://4s-mobileapi-sit.elchk.org.hk/api/index.html?url=/api/specification.json#/
+
+你先参考这段视频。是关与Flutter 环境内编译测试版本和生产版本的设定。你先看看
+https://www.youtube.com/watch?v=GwAnn1auo8o
+
+
+email:
+Username: guo.daxia@catomind.com
+Password: K(855146152900ud
+
+
+極光推送登入
+cheungbrian2005@gmail.com
+密碼： Elcss2468
+
+https://bitbucket.org/pttcoe/elcss.4s.stage1.mobile.serviceuserapp/src
+
+UI
+PM Time Table
+https://share.tracup.com/76A95C57B7-elchk-信義會APP
+
+ui
+https://xd.adobe.com/view/6faed3f0-868e-4d88-90f2-23ae96099499-3afd/
+
+run:
+flutter run --flavor prod -t lib/main_prod.dart
+flutter build apk --flavor prod
+flutter build apk --flavor dev
+
+demo
+https://4s-member-sit.elchk.org.hk/
+WangYiyi
+Password123
+
+
+petertse
+Password123

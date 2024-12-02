@@ -1,0 +1,34 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    // run: flutter run --flavor prod -t lib/main_prod.dart
+    // flutter build apk --flavor prod
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "elchk-dev",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_dev.dart",
+            "args": [
+                "--flavor",
+                "dev",
+                "target",
+                "lib/main_dev.dart"
+            ]
+        },
+        {
+            "name": "elchk-prod",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_prod.dart",
+            "args": [
+                "--flavor",
+                "prod",
+                "target",
+                "lib/main_prod.dart"
+            ]
+        },
+    ]
+}

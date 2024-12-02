@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="44" height="44" viewBox="0 0 44 44" fill="none">
+<circle  cx="22" cy="22" r="22"    fill="#FFFFFF" >
+</circle>
+<path fill-rule="evenodd"  fill="rgba(85, 189, 185, 1)"  d="M22 44C34.1503 44 44 34.1503 44 22C44 9.84974 34.1503 0 22 0C9.84974 0 0 9.84974 0 22C0 34.1503 9.84974 44 22 44ZM22 2C33.0457 2 42 10.9543 42 22C42 33.0457 33.0457 42 22 42C10.9543 42 2 33.0457 2 22C2 10.9543 10.9543 2 22 2Z">
+</path>
+<path    stroke="rgba(85, 189, 185, 1)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"  d="M9.1582 22.0004L34.8418 22.0004">
+</path>
+<path    stroke="rgba(85, 189, 185, 1)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"  d="M22 9.1582L22 34.8418">
+</path>
+</svg>
