@@ -161,7 +161,7 @@ class ApiService extends GetxService {
     Response<dynamic> response = await getc.post(path, body, headers: headers);
     resetBaseUrl();
     dynamic res = response.body;
-    print(res);
+    // print(res);
     return res;
   }
 

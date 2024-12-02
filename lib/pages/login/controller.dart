@@ -94,24 +94,6 @@ class LoginController extends GetxController {
     state.isLoading = true; // 显示加载状态
     update([uiKey]);
     try {
-      // final params = {
-      //   'grant_type': 'password',
-      //   'username': username,
-      //   'password': password,
-      // };
-
-      // final body = params.entries
-      //     .map((entry) => '${Uri.encodeComponent(entry.key)}=${entry.value}')
-      //     .join('&');
-      // Map<String, String>? headers = {
-      //   'Content-Type': 'application/x-www-form-urlencoded',
-      //   'Authorization': 'Basic NHNNb2JpbGU6'
-      // };
-      // DB.remove('authorization');
-      // ApiService.setBaseUrl('https://4s-id-sit.elchk.org.hk/');
-      // dynamic data =
-      //     await ApiService.post('connect/token', data: body, headers: headers);
-      // ApiService.resetBaseUrl();
       dynamic data = await ApiService.login(username, password);
       state.isLoading = false; // 显示加载状态
       update([uiKey]);
@@ -125,6 +107,14 @@ class LoginController extends GetxController {
         // print(member);
 
         if (member != null) {
+          // 更新 registrationId
+          String registrationId = 'test_id';
+          dynamic registration = await ApiService.post(
+              'MemberInfo/UpdateRegistrationId',
+              data: {'registrationId': registrationId});
+          print(registrationId);
+          print(registration);
+
           AuthService.setMember(member, 0);
           Get.offAll(const InitialPage());
           return;
