@@ -83,6 +83,7 @@ class NoticePage extends GetView<NoticeController> {
 
     for (var item in controller.state.list) {
       DateTime parsedTime = DateTime.parse(item['created']);
+      parsedTime = parsedTime.add(const Duration(hours: 8));
       String formattedTime =
           DateFormat('yyyy-MM-dd HH:mm:ss').format(parsedTime);
       bool dot = !item['isMarkRead'];
