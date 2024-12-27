@@ -1,4 +1,4 @@
-package com.example.flutter_elchk
+package com.elchk.my_app
 
 import io.flutter.embedding.android.FlutterActivity
 

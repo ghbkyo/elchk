@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "777387574541",
+    "project_id": "elchk-319ee",
+    "storage_bucket": "elchk-319ee.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777387574541:android:8ed51f7771b63265ae5c44",
+        "android_client_info": {
+          "package_name": "com.elchk.my_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBYu39_WQl-sgVQpSnZ9uZ7c19_5ObRe4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -108,7 +108,7 @@ class LoginController extends GetxController {
 
         if (member != null) {
           // 更新 registrationId
-          String registrationId = 'test_id';
+          String registrationId = DB.get('reg_id');
           dynamic registration = await ApiService.post(
               'MemberInfo/UpdateRegistrationId',
               data: {'registrationId': registrationId});

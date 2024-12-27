@@ -405,6 +405,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.19.0"
+  jpush_flutter:
+    dependency: "direct main"
+    description:
+      name: jpush_flutter
+      sha256: bf20ea1098d1ee626b7ee87b94ddb57b01fb4e6383eeb08a915fb82b8d15ae55
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.1.2"
   just_audio:
     dependency: transitive
     description:
