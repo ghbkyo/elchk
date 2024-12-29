@@ -20,7 +20,8 @@ class EventController extends GetxController {
 
   void changeIndex(int index) {
     state.currentIndex = index;
-    update([uiKey]);
+    search();
+    //update([uiKey]);
   }
 
   final ScrollController scrollController = ScrollController();
@@ -97,15 +98,42 @@ class EventController extends GetxController {
     state.isLoading = true;
     update([uiKey]);
 
+    var centerId = DB.get('fliter_centerId');
+    centerId ??= [];
+    var categoryIds = DB.get('fliter_categoryIds');
+    categoryIds ??= [];
+
+    var fliterType03 = DB.get('fliter_type03');
+    fliterType03 ??= [];
+
+    int feeType = 0;
+    if (fliterType03.contains('1')) feeType += 1;
+    if (fliterType03.contains('2')) feeType += 2;
+
+    //print(feeType);
+
+    var fliterType04 = DB.get('fliter_type04');
+    fliterType04 ??= [];
+
+    List<String> orderBys = ['ProgramFee', 'StartDate', 'EndDate'];
+
+    bool? isFree = false;
+    if (feeType == 1) isFree = true;
+    if (feeType == 3) isFree = null;
+    String orderBy =
+        orderBys[state.currentIndex]; // ProgramFee StartDate  EndDate
     var body = {
-      // "isInProgress": true,
-      "isOrderByAsc": false,
-      "isShow": true,
+      "isOrderByAsc": true,
       "isTop": null,
-      "orderBy": "endDate", // startDate endDate
+      "orderBy": orderBy, // startDate endDate
       "pageNumber": page,
       "keyword": keywordController.text,
-      "pageSize": 4,
+      "pageSize": 999,
+      "isFree": isFree,
+      "centerId": centerId,
+      "categoryIds": categoryIds,
+      "feeType": feeType,
+      "memberType": fliterType04
     };
     String apiUrl = 'ProgramInfo/GetProgramInfos';
 

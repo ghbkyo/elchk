@@ -46,7 +46,10 @@ class MyeventPage extends GetView<MyeventController> {
       height: 12,
     );
 
+    List<String> months = [];
+
     for (var item in controller.state.list) {
+      var programEnrollmentId = item['id'];
       var program = item['programEnrollmentSessions'][0]['programSession'];
       var type = item['programInfo']['type'];
       var accountReceivable = item['accountReceivable'];
@@ -61,6 +64,13 @@ class MyeventPage extends GetView<MyeventController> {
 
       String startDate = DateFormat('dd').format(startDateTime);
       String startMonth = DateFormat('MM月').format(startDateTime);
+
+      String month = DateFormat('MM月份活動').format(startDateTime);
+      bool showMonth = false;
+      if (!months.contains(month)) {
+        months.add(month);
+        showMonth = true;
+      }
 
       String endDate = DateFormat('dd').format(endDateTime);
       String endMonth = DateFormat('MM月').format(endDateTime);
@@ -88,7 +98,7 @@ class MyeventPage extends GetView<MyeventController> {
       Color typeTextFontColors = Colors.white;
       Color typeTextColors = const Color(0xFF7C7C7C);
       if (!isFree) {
-        typeText = r'$' + totalAmount.toString();
+        typeText = '收費'; //r'$' + totalAmount.toString();
         typeTextFontColors = Colors.white;
         typeTextColors = const Color(0xFFF9B300);
       }
@@ -143,6 +153,16 @@ class MyeventPage extends GetView<MyeventController> {
 
       //var accountReceivable = item['accountReceivable'];
 
+      if (showMonth) {
+        widgetList.add(Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [dateTip(month)],
+        ));
+        widgetList.add(const SizedBox(
+          height: 10,
+        ));
+      }
+
       widgetList.add(
         eventContent(item['programInfo']['name'],
             imageUrl: imageData,
@@ -176,13 +196,13 @@ class MyeventPage extends GetView<MyeventController> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             itemButton('取消報名', Colors.white, const Color(0xFFACACAC))
-                .onTap(() => controller.eventDialogShow(type: 3))
+                .onTap(() => controller.cancelEvent(programEnrollmentId))
                 .flexible(),
             const SizedBox(
               width: 10,
             ),
             itemButton('我的二維碼', Colors.white, const Color(0xFFFA9600))
-                .onTap(() => controller.showPaySuccess())
+                .onTap(() => controller.showQrcode(post))
                 .flexible(),
           ],
         ));
@@ -512,7 +532,6 @@ class MyeventPage extends GetView<MyeventController> {
       ],
     );
   }
-
 
   Widget qrCodeDialog() {
     var post = controller.state.post;

@@ -257,7 +257,7 @@ class EventPage extends GetView<EventController> {
                   const SizedBox(
                     width: 10,
                   ),
-                  sortBody('日期', 1),
+                  sortBody('活動日期', 1),
                   const SizedBox(
                     width: 10,
                   ),

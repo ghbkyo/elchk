@@ -7,6 +7,7 @@ import 'state.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import '../../routes/app_pages.dart';
 import '../../utils/index.dart';
+import '../event/controller.dart';
 
 class FilterController extends GetxController {
   FilterController();
@@ -15,6 +16,12 @@ class FilterController extends GetxController {
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final GetFilterState state = GetFilterState();
+
+  void fliterConfirm() async {
+    final con = Get.find<EventController>();
+    con.search();
+    Get.back();
+  }
 
   void fliterClear() {
     DB.remove('fliter_');
@@ -33,7 +40,7 @@ class FilterController extends GetxController {
     if (list.contains(value)) {
       list.remove(value);
     } else {
-      list = [];
+      //list = [];
       list.add(value);
     }
     DB.set(keyName, list);
@@ -106,24 +113,25 @@ class FilterController extends GetxController {
     List<FliterSubItem> list = [];
     FliterItem type03 = FliterItem('費用', 'type03');
     list = [];
-    list.add(FliterSubItem('免費', '01'));
-    list.add(FliterSubItem(r'$20或以下', '20'));
-    list.add(FliterSubItem(r'$50或以下', '50'));
-    list.add(FliterSubItem(r'$100或以下', '100'));
-    list.add(FliterSubItem(r'$100以上', '+'));
+    list.add(FliterSubItem('免費', '1'));
+    list.add(FliterSubItem('收費', '2'));
+    // list.add(FliterSubItem(r'$20或以下', '20'));
+    // list.add(FliterSubItem(r'$50或以下', '50'));
+    // list.add(FliterSubItem(r'$100或以下', '100'));
+    // list.add(FliterSubItem(r'$100以上', '+'));
     type03.list = list;
     state.type03 = type03;
 
     FliterItem type04 = FliterItem('參加資格', 'type04');
     list = [];
-    list.add(FliterSubItem('幼童(6歲以下)', '幼童(6歲以下)'));
-    list.add(FliterSubItem('兒童(6-12歲)', '兒童(6-12歲)'));
-    list.add(FliterSubItem('青少年(12歲以上)', '青少年(12歲以上)'));
-    list.add(FliterSubItem('婦女', '婦女'));
-    list.add(FliterSubItem('家長', '家長'));
-    list.add(FliterSubItem('親子', '親子'));
-    list.add(FliterSubItem('長者', '長者'));
     list.add(FliterSubItem('義工', '義工'));
+    list.add(FliterSubItem('個人會員', '個人會員'));
+    list.add(FliterSubItem('非會員', '非會員'));
+    list.add(FliterSubItem('金卡會員', '金卡會員'));
+    list.add(FliterSubItem('銀卡會員', '銀卡會員'));
+    list.add(FliterSubItem('銅卡會員', '銅卡會員'));
+    // list.add(FliterSubItem('長者', '長者'));
+    // list.add(FliterSubItem('義工', '義工'));
     type04.list = list;
     state.type04 = type04;
 

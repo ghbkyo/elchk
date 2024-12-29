@@ -57,7 +57,7 @@ class HomeController extends GetxController {
       "isInProgress": true,
       "isOrderByAsc": false,
       "isShow": true,
-      "isTop": null,
+      "isTop": true,
       "orderBy": "startDate",
       "pageNumber": 1,
       "pageSize": 6,
@@ -95,13 +95,13 @@ class HomeController extends GetxController {
 
   Future loadList2() async {
     var body = {
-      "isInProgress": false,
-      "isOrderByAsc": false,
+      "isInProgress": true,
+      "isOrderByAsc": true,
       "isShow": true,
-      "isTop": null,
+      //"isTop": null,
       "orderBy": "startDate",
       "pageNumber": 1,
-      "pageSize": 12,
+      "pageSize": 999,
     };
     String apiUrl = 'ProgramInfo/GetProgramInfos';
 

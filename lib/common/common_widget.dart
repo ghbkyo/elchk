@@ -86,6 +86,16 @@ Widget textH1Tip(String txt) {
   );
 }
 
+Widget dateTip(String txt) {
+  return tex(
+    txt,
+    fontSize: 16,
+    color: const Color(0xFF9A9A9A),
+    fontWeight: FontWeight.bold,
+    textAlign: TextAlign.left,
+  );
+}
+
 Widget itemBottomLeft({
   String? tag = '',
   String address = '',
@@ -447,14 +457,14 @@ Widget eventContent(
                     width: 40,
                     height: 40)
                 .onTap(collectTap),
-            const SizedBox(
-              width: 16,
-            ),
-            SvgPicture.asset('assets/svg/share-item.svg', width: 40, height: 40)
-                .onTap(() {
-              share('https://4s-member-sit.elchk.org.hk/program/detail/$postId',
-                  title);
-            })
+            // const SizedBox(
+            //   width: 16,
+            // ),
+            // SvgPicture.asset('assets/svg/share-item.svg', width: 40, height: 40)
+            //     .onTap(() {
+            //   share('https://4s-member-sit.elchk.org.hk/program/detail/$postId',
+            //       title);
+            // })
           ],
         ).container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8)),

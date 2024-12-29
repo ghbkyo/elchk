@@ -152,7 +152,7 @@ class FilterPage extends GetView<FilterController> {
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 padding:
                     const EdgeInsets.symmetric(vertical: 8, horizontal: 16))
-            .onTap(() => Get.back())
+            .onTap(() => controller.fliterConfirm())
             .container(
                 width: double.infinity,
                 color: Colors.white,

@@ -281,6 +281,148 @@ class HomePage extends GetView<HomeController> {
 
   Widget list2() {
     List<Widget> widgetList = [];
+    Widget hr = const SizedBox(
+      height: 12,
+    );
+
+    List<String> months = [];
+
+    for (var item in controller.state.list2) {
+      DateTime endDateTime = DateTime.parse(item['endDate']);
+      endDateTime = endDateTime.add(const Duration(hours: 8));
+
+      DateTime startDateTime = DateTime.parse(item['startDate']);
+      startDateTime = startDateTime.add(const Duration(hours: 8));
+
+      String month = DateFormat('MM月份活動').format(startDateTime);
+      bool showMonth = false;
+      if (!months.contains(month)) {
+        months.add(month);
+        showMonth = true;
+      }
+
+      String time =
+          '${DateFormat('HH:mm').format(startDateTime)} - ${DateFormat('HH:mm').format(endDateTime)}';
+
+      String startDate = DateFormat('dd').format(startDateTime);
+      String startMonth = DateFormat('MM月').format(startDateTime);
+
+      String endDate = DateFormat('dd').format(endDateTime);
+      String endMonth = DateFormat('MM月').format(endDateTime);
+      String address = item['venue'];
+      bool hasBookmark = item['hasBookmark'] ?? false;
+
+      int enrollmentQuota = item['programOnlineEnrollmentSetting'] == null
+          ? 0
+          : item['programOnlineEnrollmentSetting']['enrollmentQuota'];
+
+      bool betweenDate = DateFormat('yyyy-MM-dd').format(startDateTime) !=
+          DateFormat('yyyy-MM-dd').format(endDateTime);
+
+      bool isFree = item['isFree'];
+      String typeText = '免費';
+      Color typeTextFontColors = Colors.white;
+      Color typeTextColors = const Color(0xFF7C7C7C);
+      if (!isFree) {
+        typeText = '收費';
+        typeTextFontColors = Colors.white;
+        typeTextColors = const Color(0xFFF9B300);
+      }
+
+      bool isOnline = item['isOnline'];
+
+      String? tip;
+      Color tipColors = const Color(0xFFEB6685);
+      if (isOnline) {
+        tip = '綫上報名';
+        tipColors = const Color(0xFFEB6685);
+      }
+
+      List<dynamic>? hashtags = item['hashtags'];
+      String? tag;
+
+      if (hashtags != null) {
+        for (var tags in hashtags) {
+          if (tag == null) {
+            tag = '#${tags['name']}';
+          } else {
+            tag = '$tag #${tags['name']}';
+          }
+        }
+      }
+
+      String? imageData = item['imageData'];
+
+      int itemId = item['id'];
+      var post = {
+        'id': itemId,
+        'name': item['name'],
+        'imageUrl': imageData,
+        'tag': tag,
+        'isOnline': isOnline,
+        'isFree': isFree,
+        'hasBookmark': hasBookmark,
+        'date':
+            '${DateFormat('MM月dd日').format(startDateTime)} - ${DateFormat('MM月dd日').format(endDateTime)}',
+        'time': time,
+        'address': address,
+        'memberNums': enrollmentQuota.toString(),
+        'introduction': item['introduction'],
+        'canDuplicateEnrollment': item['canDuplicateEnrollment'],
+        'isCompanionAllowed': item['isCompanionAllowed'],
+        'programSessions': item['programSessions'],
+        'enrollmentEndDate': item['enrollmentEndDate'],
+        'enrollmentStartDate': item['enrollmentStartDate'],
+        'endDate': item['endDate'],
+        'startDate': item['startDate'],
+        'center': item['center'],
+        'maximunNumberOfCompanions': item['maximunNumberOfCompanions'],
+      };
+
+      if (showMonth) {
+        widgetList.add(Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [dateTip(month)],
+        ));
+        widgetList.add(const SizedBox(
+          height: 10,
+        ));
+      }
+      widgetList.add(
+        eventContent(
+          item['name'],
+          imageUrl: imageData,
+          tip: tip,
+          tipColors: tipColors,
+          typeText: typeText,
+          typeTextFontColors: typeTextFontColors,
+          typeTextColors: typeTextColors,
+          tag: tag,
+          address: address,
+          time: time,
+          memberNums: enrollmentQuota.toString(),
+          collect: hasBookmark,
+          betweenDate: betweenDate,
+          startDate: startDate,
+          startMonth: startMonth,
+          endDate: endDate,
+          endMonth: endMonth,
+          collectTap: () => controller.collectTap(itemId),
+          postId: itemId,
+        ).onTap(() {
+          Get.toNamed(Routes.REMARK, arguments: {'post': post});
+        }),
+      );
+      widgetList.add(
+        hr,
+      );
+    }
+    return Column(children: [...widgetList]);
+    // return widgetList;
+  }
+
+  Widget list2_bak() {
+    List<Widget> widgetList = [];
     List<Widget> widgetList2 = [];
     int index = 0;
 

@@ -11,6 +11,124 @@ import '../../utils/index.dart';
 class MyeventController extends GetxController {
   MyeventController();
 
+  static Future<bool> dialog(
+    BuildContext context, {
+    String? title = "提示",
+    String? content,
+    String? cancelText = "否",
+    String confirmText = "是",
+  }) async {
+    final bool? isConfirm = await showDialog<bool>(
+      context: context,
+      //点击背景灰色区域是否关闭对话框
+      //barrierDismissble: false,
+      builder: (BuildContext context) => Dialog(
+        //这部分是对话框样式，可以完全自定义
+        child: Container(
+          width: 560,
+          padding: const EdgeInsets.only(top: 40),
+          clipBehavior: Clip.hardEdge,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (title != null)
+                Padding(
+                  padding:
+                      const EdgeInsets.only(bottom: 34, left: 30, right: 30),
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      color: Color(0xFF353A37),
+                      fontSize: 36,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              if (content != null)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 40, left: 30),
+                  child: Text(
+                    content,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Color(0xFF858786),
+                      fontSize: 28,
+                    ),
+                  ),
+                ),
+              Row(
+                children: [
+                  if (cancelText != null)
+                    Expanded(
+                      child: GestureDetector(
+                        //点击取消按钮
+                        onTap: () {
+                          Navigator.pop(context, false);
+                        },
+                        child: Container(
+                          height: 100,
+                          decoration: const BoxDecoration(
+                            border: Border(
+                              top: BorderSide(color: Color(0xFFE5E5E5)),
+                              right: BorderSide(
+                                color: Color(0xFFE5E5E5),
+                              ),
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              cancelText,
+                              style: const TextStyle(
+                                fontSize: 36,
+                                color: Color(0xFF858786),
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  Expanded(
+                    child: GestureDetector(
+                      //点击确认按钮
+                      onTap: () {
+                        Navigator.pop(context, true);
+                      },
+                      child: Container(
+                        height: 100,
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            top: BorderSide(color: Color(0xFFE5E5E5)),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            confirmText,
+                            style: const TextStyle(
+                              fontSize: 36,
+                              color: Color(0xFF40B169),
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+    //返回结果
+    return isConfirm ?? false;
+  }
+
   String uiKey = 'myevent';
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -19,6 +137,37 @@ class MyeventController extends GetxController {
   void changeIndex(int index) {
     state.currentIndex = index;
     update([uiKey]);
+  }
+
+  void cancelEvent(var id) async {
+    if (await dialog(
+      Get.context!,
+      title: "提示",
+      content: "是否取消報名此活動？",
+    )) {
+      //print("点击确认");
+
+      var params = {'programEnrollmentId': id, 'remark': ''};
+      String apiUrl = 'ProgramEnrollment/Cancel';
+
+      dynamic res = await ApiService.post(apiUrl, data: params);
+      if (res != null) {
+        int index = 0;
+        for (var item in state.list) {
+          int itemId = item['id'];
+          if (id == itemId) {
+            break;
+          }
+          index += 1;
+        }
+        state.list.removeAt(index);
+        update([uiKey]);
+
+        eventDialogShow(type: 2);
+      }
+    } else {
+      print("点击取消");
+    }
   }
 
   void eventDialogShow({int type = 0}) {
@@ -101,7 +250,7 @@ class MyeventController extends GetxController {
         }
         index += 1;
       }
-      print(index);
+      //print(index);
       //state.list.removeAt(index);
       update([uiKey]);
     }
